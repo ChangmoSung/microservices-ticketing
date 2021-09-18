@@ -2,10 +2,7 @@ import request from "supertest";
 import { app } from "../../app";
 
 it("returns 201 on successful signup", async () => {
-  return request(app)
-    .post("/api/users/signup")
-    .send({ email: "test@gmail.com", password: "123" })
-    .expect(201);
+  await global.signup();
 });
 
 it("returns 400 with an invalid email", async () => {
@@ -35,10 +32,7 @@ it("returns 400 with missing email and password", async () => {
 });
 
 it("disallows duplicate emails", async () => {
-  await request(app)
-    .post("/api/users/signup")
-    .send({ email: "test@gmail.com", password: "123" })
-    .expect(201);
+  await global.signup();
 
   await request(app)
     .post("/api/users/signup")
@@ -47,10 +41,7 @@ it("disallows duplicate emails", async () => {
 });
 
 it("sets a cookie after successful signup", async () => {
-  const response = await request(app)
-    .post("/api/users/signup")
-    .send({ email: "test@gmail.com", password: "123" })
-    .expect(201);
+  const cookie = await global.signup();
 
-  expect(response.get("Set-Cookie")).toBeDefined();
+  expect(cookie).toBeDefined();
 });
