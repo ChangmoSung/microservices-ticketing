@@ -6,7 +6,9 @@ const LandingPage = ({ currentUser }) => {
 
 export const getServerSideProps = async (context) => {
   const client = buildClient(context);
-  const { data: currentUser } = await client.get("/api/users/currentUser");
+  const {
+    data: { currentUser },
+  } = await client.get("/api/users/currentuser");
   return { props: { currentUser } };
 };
 
