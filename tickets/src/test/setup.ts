@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 
 declare global {
   var signup: () => string;
+  var getRandomId: () => string;
 }
 
 let mongo: any;
@@ -46,3 +47,5 @@ global.signup = () => {
 
   return `express:sess=${base64}`;
 };
+
+global.getRandomId = () => new mongoose.Types.ObjectId().toHexString();

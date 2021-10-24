@@ -8,6 +8,8 @@ import {
   currentUser,
 } from "@changmotickets/common";
 import { createTicketRouter } from "./routes/new";
+import { showTicketRouters } from "./routes/show";
+import { indexTicketRouter } from "./routes/index";
 
 const app = express();
 app.set("trust proxy", true);
@@ -20,6 +22,8 @@ app.use(
 app.use(currentUser);
 
 app.use(createTicketRouter);
+app.use(showTicketRouters);
+app.use(indexTicketRouter);
 
 app.all("*", async () => {
   throw new NotFoundError();
